@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Portfólio moderno de Pedro — desenvolvedor front‑end que cria experiências digitais rápidas, acessíveis e impactantes." />
+  <meta name="theme-color" content="#0b0f17" />
+  <meta property="og:title" content="Pedro — Portfólio" />
+  <meta property="og:description" content="Projetos, serviços, processo, depoimentos e contato." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://picsum.photos/1200/630" />
+  <title>Pedro — Portfólio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..900&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #0b0f17;
+      --surface: #121826;
+      --text: #e5e7eb;
+      --muted: #9aa4b2;
+      --brand: #7c3aed;
+      --brand-2: #06b6d4;
+      --radius: 18px;
+      --shadow: 0 10px 30px rgba(0,0,0,.45);
+      --maxw: 1160px;
+      color-scheme: dark;
+    }
+
+    *{ box-sizing: border-box; }
+    html{ scroll-behavior: smooth; }
+    body{
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+      background: radial-gradient(1200px 600px at 10% -10%, rgba(124,58,237,.28), transparent 60%),
+                  radial-gradient(1200px 600px at 110% 10%, rgba(6,182,212,.24), transparent 60%),
+                  var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x:hidden;
+    }
+
+    .container{ max-width: var(--maxw); margin-inline: auto; padding: clamp(16px, 3vw, 28px); }
+    .stack{ display: grid; gap: clamp(16px, 2.4vw, 28px); }
+    .grid{ display: grid; gap: clamp(14px, 2vw, 24px); }
+    .grid.auto{ grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+
+    .card{
+      position: relative;
+      background: rgba(18,24,38,0.9);
+      border: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: saturate(120%) blur(12px);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      transition: transform .6s ease, box-shadow .6s ease, opacity .6s ease;
+      overflow: hidden;
+    }
+    .card:hover{ transform: translateY(-6px) scale(1.02); box-shadow:0 20px 40px rgba(0,0,0,.6) }
+
+    .chip{ display:inline-flex; align-items:center; gap:.5rem; padding:.5rem .8rem; border-radius:999px; border:1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.05); font-size:.85rem; backdrop-filter: blur(8px); }
+
+    header.top{
+      position: sticky; top: 0; z-index: 50; backdrop-filter: blur(10px) saturate(160%);
+      background: rgba(11,15,23,0.9);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      animation: fadeDown 1s ease;
+    }
+    nav{ display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+    nav .brand{ display:flex; align-items:center; gap:.75rem; text-decoration:none; color:inherit; }
+    nav .brand .dot{ width:12px; height:12px; border-radius:50%; background: conic-gradient(from 0deg, var(--brand), var(--brand-2)); box-shadow:0 0 16px var(--brand); animation: pulse 2s infinite; }
+    nav ul{ display:flex; flex-wrap:wrap; gap: clamp(10px, 2vw, 24px); padding:0; margin:0; list-style:none; }
+    nav a{ color: var(--muted); text-decoration:none; font-weight:600; position:relative; }
+    nav a::after{ content:""; position:absolute; left:0; bottom:-4px; width:0; height:2px; background: linear-gradient(90deg,var(--brand),var(--brand-2)); transition:.3s; }
+    nav a:hover::after, nav a.active::after{ width:100%; }
+
+    .hero{ display:grid; grid-template-columns: 1.2fr .8fr; gap:clamp(20px, 4vw, 40px); align-items:center; padding-block: clamp(40px, 8vw, 100px); }
+    @media (max-width: 900px){ .hero{ grid-template-columns: 1fr; } }
+    .hero h1{ font-size: clamp(2rem, 3.5vw, 4rem); line-height:1.1; letter-spacing:-.02em; margin:0; }
+    .hero p{ font-size: clamp(1rem, 1.2vw, 1.25rem); color: var(--muted); }
+    .hero .big-card{ position:relative; aspect-ratio: 4/5; overflow:hidden; }
+
+    .ring{
+      position:absolute; inset:auto -30% -30% auto; width: 80%; aspect-ratio:1; border-radius:50%;
+      background: radial-gradient(circle at 30% 30%, rgba(124,58,237,.55), transparent 60%),
+                  radial-gradient(circle at 70% 70%, rgba(6,182,212,.65), transparent 60%);
+      filter: blur(40px); opacity:.7; pointer-events:none;
+      animation: float 12s ease-in-out infinite, spin 20s linear infinite;
+    }
+
+    section{ padding-block: clamp(48px, 8vw, 90px); }
+    section header h2{ font-size: clamp(1.6rem, 2.4vw, 2.6rem); margin:.2rem 0; letter-spacing:-.02em }
+    section header p{ color: var(--muted); margin:0 }
+
+    .kpis{ display:grid; grid-template-columns: repeat(4, 1fr); gap:16px; }
+    .kpis .card{ text-align:center; padding:22px }
+    .kpis .num{ font-size:clamp(1.6rem,3vw,2.2rem); font-weight:800; letter-spacing:-.02em }
+    @media (max-width: 900px){ .kpis{ grid-template-columns: 1fr 1fr } }
+
+    .service{ display:flex; gap:16px; align-items:flex-start; padding:18px }
+    .service svg{ flex:0 0 28px }
+
+    .project{ display:grid; grid-template-columns: 1fr 1fr; gap:22px; align-items:center; }
+    .project .body{ padding:20px }
+    @media (max-width: 900px){ .project{ grid-template-columns: 1fr } }
+
+    /* (cores da imagem "espalhando" no fundo)  */
+    .img-wrap{ position:relative; }
+    .img-wrap img.main{ width:100%; height:auto; display:block; border-radius: calc(var(--radius) - 6px); position:relative; z-index:1; }
+    .img-wrap img.glow{ position:absolute; inset:-20%; width:140%; height:140%; object-fit:cover; filter: blur(50px) saturate(180%); opacity:.25; transform:scale(1.1); z-index:0; pointer-events:none; }
+
+    
+    .reveal{ opacity:0; transform:translateY(28px); transition: opacity .8s ease, transform .8s ease; }
+    .reveal.show{ opacity:1; transform:none }
+    [data-anim="left"]{ transform: translateX(-30px); }
+    [data-anim="right"]{ transform: translateX(30px); }
+    [data-anim="zoom"]{ transform: scale(.96); }
+    .show[data-anim="left"], .show[data-anim="right"], .show[data-anim="zoom"]{ transform:none }
+
+    footer{ border-top: 1px solid rgba(255,255,255,0.08); padding-block: 28px; color: var(--muted); text-align:center; }
+
+    @keyframes float{ 0%,100%{ transform: translateY(0) } 50%{ transform: translateY(-12px) } }
+    @keyframes spin{ 0%{ transform:rotate(0)} 100%{ transform:rotate(360deg)} }
+    @keyframes pulse{ 0%,100%{ transform:scale(1); opacity:1 } 50%{ transform:scale(1.3); opacity:.7 } }
+    @keyframes fadeDown{ from{opacity:0; transform:translateY(-20px)} to{opacity:1; transform:translateY(0)} }
+  </style>
+</head>
+<body>
+  <!-- ======= Header ======= -->
+  <header class="top container">
+    <nav>
+      <a href="#topo" class="brand"><span class="dot"></span><strong>Pedro</strong></a>
+      <ul>
+        <li><a href="#projetos">Projetos</a></li>
+        <li><a href="#servicos">Serviços</a></li>
+        <li><a href="#processo">Processo</a></li>
+        <li><a href="#depoimentos">Depoimentos</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+      <a class="chip" href="#contato">🚀 Vamos conversar</a>
+    </nav>
+  </header>
+
+  <main id="topo" class="container">
+   
+    <section class="hero reveal show" data-anim="zoom">
+      <div class="stack">
+        <h1>Interfaces <span style="background:linear-gradient(90deg,var(--brand),var(--brand-2)); -webkit-background-clip:text; background-clip:text; color:transparent">rápidas, acessíveis e memoráveis</span>.</h1>
+        <p>Eu ajudo marcas a lançarem produtos web com performance, estética e clareza. Pixel‑perfect sem perder velocidade.</p>
+        <div class="grid auto">
+          <span class="chip">Open to work</span>
+          <span class="chip">Entrega média: 2–4 semanas</span>
+          <span class="chip">Satisfação 98%</span>
+        </div>
+        <div class="grid" style="grid-template-columns: auto auto; width:max-content; gap:12px;">
+          <a class="chip" href="#projetos">Ver projetos</a>
+          <a class="chip" href="#contato">Fale comigo</a>
+        </div>
+      </div>
+      <div class="card big-card">
+        <div class="img-wrap">
+          <img class="glow" src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1200&auto=format&fit=crop" alt="" aria-hidden="true"/>
+          <img class="main" src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1200&auto=format&fit=crop" alt="Mesa de trabalho com notebook e código"/>
+        </div>
+        <div class="ring" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    
+    <section class="reveal" id="kpis">
+      <div class="kpis">
+        <div class="card reveal show" data-anim="zoom"><div class="num">95–100</div><div>PageSpeed (Mobile)</div></div>
+        <div class="card reveal" data-anim="left"><div class="num">−40%</div><div>Tempo de carregamento</div></div>
+        <div class="card reveal" data-anim="right"><div class="num">+32%</div><div>Conversão média</div></div>
+        <div class="card reveal" data-anim="zoom"><div class="num">0</div><div>Erros críticos de A11y</div></div>
+      </div>
+    </section>
+
+    <!-- ======= Projetos ======= -->
+    <section id="projetos" class="stack">
+      <header class="reveal"><h2>Projetos em destaque</h2><p>Estudos de caso com foco em resultado.</p></header>
+
+      <article class="project card reveal" data-anim="left">
+        <div class="img-wrap">
+          <img class="glow" src="https://picsum.photos/900/600?ecom" alt=""/>
+          <img class="main" src="https://picsum.photos/900/600?ecom" alt="Tela de e‑commerce moderno">
+        </div>
+        <div class="body">
+          <h3>Shoply — e‑commerce headless</h3>
+          <p>Next.js + Stripe + imagens responsivas. LCP < 1.2s em 4G, SEO técnico e i18n.</p>
+          <div class="grid auto">
+            <span class="chip">Next.js</span><span class="chip">Stripe</span><span class="chip">Edge</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="project card reveal" data-anim="right">
+        <div class="img-wrap">
+          <img class="glow" src="https://picsum.photos/900/600?dash" alt=""/>
+          <img class="main" src="https://picsum.photos/900/600?dash" alt="Gráficos e painel de dados">
+        </div>
+        <div class="body">
+          <h3>Pulse — dashboard em tempo real</h3>
+          <p>Streams de dados com WebSockets, atalhos de teclado e dark mode automático.</p>
+          <div class="grid auto">
+            <span class="chip">Vite</span><span class="chip">Socket</span><span class="chip">Charts</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="project card reveal" data-anim="left">
+        <div class="img-wrap">
+          <img class="glow" src="https://picsum.photos/900/600?site" alt=""/>
+          <img class="main" src="https://picsum.photos/900/600?site" alt="Site institucional minimalista">
+        </div>
+        <div class="body">
+          <h3>Nova — site institucional ultra leve</h3>
+          <p>Vanilla, 30KB totais e 100 em Acessibilidade no Lighthouse.</p>
+          <div class="grid auto">
+            <span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">SEO</span>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- ======= Serviços ======= -->
+    <section id="servicos" class="stack">
+      <header class="reveal"><h2>Serviços</h2><p>Do conceito ao deploy.</p></header>
+      <div class="grid auto">
+        <div class="card service reveal" data-anim="zoom">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 6h16v12H4z"/><path d="M2 9h20"/></svg>
+          <div><strong>Websites & Landings</strong><br/><small>SEO técnico, CWV e copy clara.</small></div>
+        </div>
+        <div class="card service reveal" data-anim="zoom">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 2h12v6H6z"/><path d="M3 10h18v12H3z"/></svg>
+          <div><strong>E‑commerce</strong><br/><small>Headless, checkout e integrações.</small></div>
+        </div>
+        <div class="card service reveal" data-anim="zoom">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/></svg>
+          <div><strong>Dashboards</strong><br/><small>Dados em tempo real e UX de leitura.</small></div>
+        </div>
+        <div class="card service reveal" data-anim="zoom">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 4h16v16H4z"/><path d="M4 9h16"/></svg>
+          <div><strong>Performance & A11y</strong><br/><small>Auditoria, tuning e WCAG.</small></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======= Processo ======= -->
+    <section id="processo" class="stack">
+      <header class="reveal"><h2>Processo</h2><p>Transparente, rápido e iterativo.</p></header>
+      <div class="grid auto">
+        <div class="card reveal" data-anim="left" style="padding:18px"><strong>1. Descoberta</strong><br/><small>Objetivos, público e KPIs.</small></div>
+        <div class="card reveal" data-anim="left" style="padding:18px"><strong>2. Prototipagem</strong><br/><small>Fluxos e UI no Figma.</small></div>
+        <div class="card reveal" data-anim="right" style="padding:18px"><strong>3. Construção</strong><br/><small>Componentes, acessibilidade, testes.</small></div>
+        <div class="card reveal" data-anim="right" style="padding:18px"><strong>4. Otimização</strong><br/><small>Core Web Vitals e SEO.</small></div>
+        <div class="card reveal" data-anim="zoom" style="padding:18px"><strong>5. Deploy</strong><br/><small>CI/CD e monitoramento.</small></div>
+      </div>
+    </section>
+
+    <!-- ======= Depoimentos ======= -->
+    <section id="depoimentos" class="stack">
+      <header class="reveal"><h2>Depoimentos</h2><p>O que clientes dizem.</p></header>
+      <div class="grid auto">
+        <blockquote class="card reveal" data-anim="left" style="padding:22px">“Entrega impecável e performance absurda. Nosso SEO subiu em semanas.”<br/><small>— Ana, Head de Marketing</small></blockquote>
+        <blockquote class="card reveal" data-anim="right" style="padding:22px">“Metodologia clara e foco em acessibilidade que fez diferença de verdade.”<br/><small>— João, Produto</small></blockquote>
+      </div>
+    </section>
+
+    <!-- ======= Stack ======= -->
+    <section id="stack" class="stack">
+      <header class="reveal"><h2>Stack & Ferramentas</h2><p>O que uso no dia a dia.</p></header>
+      <div class="grid auto">
+        <span class="chip">HTML5</span><span class="chip">CSS moderno</span><span class="chip">TypeScript</span><span class="chip">React</span><span class="chip">Next.js</span><span class="chip">Node</span><span class="chip">Vite</span><span class="chip">Vercel</span><span class="chip">Git</span>
+      </div>
+    </section>
+
+    <!-- ======= Artigos ======= -->
+    <section id="artigos" class="stack">
+      <header class="reveal"><h2>Artigos</h2><p>Algumas ideias e aprendizados.</p></header>
+      <div class="grid auto">
+        <a class="card reveal" data-anim="left" style="padding:18px" href="#"><strong>Como tirar 100 no Lighthouse de Acessibilidade</strong><br/><small>Checklist prático e exemplos.</small></a>
+        <a class="card reveal" data-anim="zoom" style="padding:18px" href="#"><strong>Core Web Vitals na vida real</strong><br/><small>Medindo e melhorando LCP/CLS/INP.</small></a>
+        <a class="card reveal" data-anim="right" style="padding:18px" href="#"><strong>Design Systems sem dor</strong><br/><small>Tokens, temas e escalabilidade.</small></a>
+      </div>
+    </section>
+
+    <!-- ======= FAQ ======= -->
+    <section id="faq" class="stack">
+      <header class="reveal"><h2>FAQ</h2><p>Perguntas frequentes</p></header>
+      <div class="stack">
+        <details class="card reveal" data-anim="left"><summary>Quanto tempo leva um projeto?</summary><div style="padding:14px 18px 18px">Entre 2 e 6 semanas, dependendo do escopo.</div></details>
+        <details class="card reveal" data-anim="zoom"><summary>Trabalha com contrato fechado ou por hora?</summary><div style="padding:14px 18px 18px">Projeto fechado é o padrão; horas para manutenção.</div></details>
+        <details class="card reveal" data-anim="right"><summary>Você cuida de SEO?</summary><div style="padding:14px 18px 18px">Sim: técnico (meta, schema, sitemaps) e performance.</div></details>
+      </div>
+    </section>
+
+    
+    <section id="contato" class="stack">
+      <header class="reveal"><h2>Contato</h2><p>Vamos tirar sua ideia do papel?</p></header>
+      <div class="grid auto">
+        <div class="card reveal" data-anim="left" style="padding:20px">
+          <form class="stack" onsubmit="event.preventDefault(); openDialog();">
+            <label>Seu nome
+              <input required name="nome" placeholder="Seu nome" style="width:100%; padding:12px 14px; border-radius:12px; border:1px solid rgba(255,255,255,0.14); background:transparent; color:var(--text)">
+            </label>
+            <label>E‑mail
+              <input required type="email" name="email" placeholder="voce@email.com" style="width:100%; padding:12px 14px; border-radius:12px; border:1px solid rgba(255,255,255,0.14); background:transparent; color:var(--text)">
+            </label>
+            <label>Mensagem
+              <textarea required name="mensagem" rows="5" placeholder="Conte um pouco do seu projeto" style="width:100%; padding:12px 14px; border-radius:12px; border:1px solid rgba(255,255,255,0.14); background:transparent; color:var(--text)"></textarea>
+            </label>
+            <button class="chip" type="submit">Enviar</button>
+            <small style="color:var(--muted)">* Demo — personalize com seu endpoint (Formspree/Resend etc.).</small>
+          </form>
+        </div>
+        <div class="card reveal" data-anim="right" style="padding:20px">
+          <strong>E‑mail</strong>
+          <div class="grid" style="grid-template-columns:1fr auto; align-items:center;">
+            <span id="emailText" class="chip">pedro.dev@email.com</span>
+            <button class="chip" id="copyBtn" aria-label="Copiar e‑mail">Copiar</button>
+          </div>
+          <div style="margin-top:12px"><strong>Redes</strong>
+            <div class="grid auto" style="margin-top:8px">
+              <a class="chip" href="https://github.com/pedrodjbarcelona-bot" aria-label="GitHub">GitHub</a>
+              <a class="chip" href="Seu Link aqui" aria-label="LinkedIn">LinkedIn</a>
+              <a class="chip" href="#" aria-label="Twitter/X">X</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container">
+    <small>© <span id="year"></span> Pedro — Feito com HTML moderno.</small>
+  </footer>
+
+  
+  <dialog id="thanksDialog" class="card" style="padding:24px; max-width:520px;">
+    <h3>Obrigado! ✨</h3>
+    <p>Recebi sua mensagem. Responderei em breve.</p>
+    <form method="dialog"><button class="chip">Fechar</button></form>
+  </dialog>
+
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Pedro",
+    "jobTitle": "Desenvolvedor Front-end",
+    "url": "https://exemplo.com",
+    "sameAs": ["https://github.com/pedrodjbarcelona-bot,"https://www.linkedin.com/in/seuuser/"],
+    "knowsAbout": ["React","Next.js","TypeScript","Acessibilidade","SEO","Core Web Vitals"]
+  }
+  </script>
+
+  
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    
+    function openDialog(){ const dlg = document.getElementById('thanksDialog'); if(!dlg.open) dlg.showModal(); }
+    window.openDialog = openDialog;
+
+    // Copiar email
+    const copyBtn = document.getElementById('copyBtn');
+    copyBtn?.addEventListener('click', async () => {
+      const email = document.getElementById('emailText').textContent.trim();
+      try { await navigator.clipboard.writeText(email); copyBtn.textContent = 'Copiado!'; setTimeout(()=>copyBtn.textContent='Copiar', 1500);} catch(e){ alert('Não foi possível copiar.'); }
+    });
+
+    
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach((e)=>{
+        if(e.isIntersecting){
+          const el = e.target;
+          const delay = el.dataset.delay ? parseFloat(el.dataset.delay) : 0;
+          setTimeout(()=> el.classList.add('show'), delay);
+          io.unobserve(el);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal, .card').forEach(el=>{
+      
+      if(el.classList.contains('reveal') || el.closest('.reveal')){
+        el.style.willChange = 'transform, opacity';
+        io.observe(el);
+      }
+    });
+  </script>
+  <script>
+  // === CONFIGURE AQUI ===
+  const DEST_EMAIL = 'pedro.dev@email.com'; // <-- email que ira receber 
+
+  // Pega referencias do formulário 
+  const form = document.querySelector('#contato form'); 
+  const dlg  = document.getElementById('thanksDialog');
+  const btn  = form?.querySelector('button[type="submit"]');
+
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const data = Object.fromEntries(new FormData(form));
+    const nome = (data.nome || '').trim();
+    const email = (data.email || '').trim();
+    const mensagem = (data.mensagem || '').trim();
+
+    if (!nome || !email || !mensagem) return; 
+
+ // Monte o assunto e corpo do e-mail
+    const assunto = `Novo contato pelo portfólio — ${nome}`;
+    const corpo = [
+      `Nome: ${nome}`,
+      `E-mail: ${email}`,
+      '',
+      'Mensagem:',
+      mensagem
+    ].join('\n');
+
+    // Constrói a URL mailto (quebras de linha)
+    const mailto = `mailto:${encodeURIComponent(DEST_EMAIL)}`
+      + `?subject=${encodeURIComponent(assunto)}`
+      + `&body=${encodeURIComponent(corpo)}`;
+
+    // Desabilita o botão por UX
+    const old = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'Abrindo seu e-mail...';
+
+    // Tenta abrir o app de e-mail padrão
+    // _self diminui o bloqueio de pop-up em mobile; se preferir, use window.open(mailto, '_blank')
+    window.location.href = mailto;
+
+    // Fallback simples (caso nada aconteça em alguns desktops)
+    setTimeout(() => {
+      btn.disabled = false;
+      btn.textContent = old;
+      // opcional: mostra o dialog de obrigado só como feedback visual
+      // if (!dlg.open) dlg.showModal();
+    }, 1200);
+  });
+</script>
+
+</body>
+</html>
